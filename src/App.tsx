@@ -1,3 +1,5 @@
+import { Home } from './pages/Home'
+
 export function App() {
-  return <div>SCREEN</div>
+  return <Home />
 }
