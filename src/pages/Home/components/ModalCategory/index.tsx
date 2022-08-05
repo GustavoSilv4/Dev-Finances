@@ -10,15 +10,15 @@ interface ModalProps {
   createCategory: (category: string) => void
 }
 
-const NewCategoryScheme = zod.object({
+const NewCategoryValidationScheme = zod.object({
   category: zod.string().min(1, 'Digite um nome para criar uma nova categoria'),
 })
 
-type NewCategoryDate = zod.infer<typeof NewCategoryScheme>
+type NewCategoryData = zod.infer<typeof NewCategoryValidationScheme>
 
 export function ModalCategory({ show, closeModal, createCategory }: ModalProps) {
-  const { register, handleSubmit, reset } = useForm({
-    resolver: zodResolver(NewCategoryScheme),
+  const { register, handleSubmit, reset } = useForm<NewCategoryData>({
+    resolver: zodResolver(NewCategoryValidationScheme),
     defaultValues: {
       category: '',
     },
@@ -28,7 +28,7 @@ export function ModalCategory({ show, closeModal, createCategory }: ModalProps) 
     closeModal()
   }
 
-  function handleCreateNewCategory(data: NewCategoryDate) {
+  function handleCreateNewCategory(data: NewCategoryData) {
     createCategory(data.category)
     reset()
   }
