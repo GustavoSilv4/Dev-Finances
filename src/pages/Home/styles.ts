@@ -7,6 +7,7 @@ export const Header = styled.header`
   height: 14.8rem;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   padding: 2rem 10rem 0;
 
   background-color: ${(props) => props.theme['green-light']};
@@ -17,6 +18,9 @@ export const Header = styled.header`
   }
 
   nav {
+    display: flex;
+    gap: 1.5rem;
+
     button {
       position: relative;
       font-size: 1rem;
