@@ -3,7 +3,9 @@ import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { CategoriesData, TransactionListData } from '../..'
-import { Background, Container, ModalForm, ModalHeader } from './styles'
+import { Background, ButtonClose, ButtonIncome, ButtonOutcome, Container, ModalForm, ModalHeader } from './styles'
+import { useState } from 'react'
+import { ArrowCircleDown, ArrowCircleUp } from 'phosphor-react'
 
 interface ModalProps {
   show: boolean
@@ -16,13 +18,13 @@ const TransactionValidationScheme = zod.object({
   title: zod.string().min(1, 'Digite um titulo para a transação!'),
   value: zod.string().min(1),
   category: zod.string().min(1),
-  date: zod.string().min(1),
-  type: zod.string().min(1),
 })
 
 type TransactionData = zod.infer<typeof TransactionValidationScheme>
 
 export function ModalTransaction({ show, closeModal, categories, createTransaction }: ModalProps) {
+  const [buttonType, setButtonType] = useState<'income' | 'outcome' | null>(null)
+
   const { register, handleSubmit, reset } = useForm<TransactionData>({
     resolver: zodResolver(TransactionValidationScheme),
     defaultValues: {
@@ -32,42 +34,39 @@ export function ModalTransaction({ show, closeModal, categories, createTransacti
   })
 
   function handleCreateNewTransaction(data: TransactionData) {
-    createTransaction({ ...data, id: new Date().getTime() })
+    if (buttonType === null) {
+      return
+    }
+    createTransaction({ ...data, id: new Date().getTime(), type: buttonType, date: new Date() })
     reset()
   }
 
   function handleCloseModal() {
     closeModal()
+    setButtonType(null)
+    reset()
   }
 
   return (
     <Container show={show}>
       <Background show={show}>
         <ModalHeader>
-          <h2>Crie uma nova Transação</h2>
+          <h2>Cadastrar nova Transação</h2>
         </ModalHeader>
         <div>
           <ModalForm onSubmit={handleSubmit(handleCreateNewTransaction)}>
-            <input type="text" placeholder="Digite o titulo" {...register('title')} />
-            <input
-              type="number"
-              min="0.00"
-              step="0.01"
-              placeholder="Digite o valor (Ex: 250,00)"
-              {...register('value')}
-            />
-            <label>Tipo da Transação</label>
+            <input type="text" placeholder="Titulo" {...register('title')} />
+            <input type="number" min="0.00" step="0.01" placeholder="Preço (Ex: 250,00)" {...register('value')} />
             <div>
-              <div>
-                <label htmlFor="deposito">Deposito</label>
-                <input type="radio" id="deposito" value={'Deposito'} {...register('type')} />
-              </div>
-              <div>
-                <label htmlFor="saque">Saque</label>
-                <input type="radio" id="saque" value={'Saque'} {...register('type')} />
-              </div>
+              <ButtonIncome type="button" onClick={(e) => setButtonType('income')} typeButtonProps={buttonType}>
+                <ArrowCircleUp size={24} />
+                Income
+              </ButtonIncome>
+              <ButtonOutcome type="button" onClick={(e) => setButtonType('outcome')} typeButtonProps={buttonType}>
+                <ArrowCircleDown size={24} />
+                Outcome
+              </ButtonOutcome>
             </div>
-            <label htmlFor="categorias">Selecione uma categoria</label>
             <select id="categorias" {...register('category')}>
               {categories.map((category) => (
                 <option key={category.id} value={category.name}>
@@ -75,11 +74,10 @@ export function ModalTransaction({ show, closeModal, categories, createTransacti
                 </option>
               ))}
             </select>
-            <input type="date" {...register('date')} />
-            <button type="submit">Criar</button>
+            <button type="submit">Enviar</button>
           </ModalForm>
         </div>
-        <button onClick={handleCloseModal}>Fechar</button>
+        <ButtonClose onClick={handleCloseModal}>Fechar</ButtonClose>
       </Background>
     </Container>
   )
