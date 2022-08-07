@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 
 interface TypeProp {
-  type: string
+  type: 'income' | 'outcome'
 }
 
 export const Container = styled.section`
-  margin: 0 10rem;
+  margin: 0 10rem 10rem;
+  max-height: 30rem;
   overflow: auto;
 
   table {
@@ -46,9 +47,9 @@ export const Title = styled.td`
   color: ${(props) => props.theme.title};
 `
 export const Value = styled.td<TypeProp>`
-  ${(props) => props.type === 'Saque' && `color: ${props.theme.red}`}
+  ${(props) => props.type === 'outcome' && `color: ${props.theme.red}`}
 
-  ${(props) => props.type === 'Deposito' && `color: ${props.theme.green}`}
+  ${(props) => props.type === 'income' && `color: ${props.theme.green}`}
 `
 export const Category = styled.td`
   color: ${(props) => props.theme.text};

@@ -1,4 +1,5 @@
-import { Coffee, CurrencyDollar, House } from 'phosphor-react'
+import { format } from 'date-fns'
+import { Cardholder, Coffee, CurrencyDollar, House } from 'phosphor-react'
 import { TransactionListData } from '../..'
 import { Category, Container, DateT, Title, Value } from './styles'
 
@@ -7,6 +8,11 @@ interface TableProps {
 }
 
 export function Table({ transactionList }: TableProps) {
+  function currencyFormat(value: number) {
+    const formatted = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)
+    return formatted
+  }
+
   return (
     <Container>
       <table>
@@ -22,10 +28,10 @@ export function Table({ transactionList }: TableProps) {
           {transactionList.map((transaction) => (
             <tr key={transaction.id}>
               <Title>{transaction.title}</Title>
-              {transaction.type === 'Saque' ? (
-                <Value type={transaction.type}>- R$ {transaction.value.replace('.', ',')}</Value>
+              {transaction.type === 'outcome' ? (
+                <Value type={transaction.type}>- {currencyFormat(Number(transaction.value))}</Value>
               ) : (
-                <Value type={transaction.type}>R$ {transaction.value.replace('.', ',')}</Value>
+                <Value type={transaction.type}>{currencyFormat(Number(transaction.value))}</Value>
               )}
 
               {transaction.category === 'Venda' && (
@@ -44,13 +50,18 @@ export function Table({ transactionList }: TableProps) {
 
               {transaction.category === 'Casa' && (
                 <Category>
-                  <span>
-                    <House size={20} />
-                  </span>
+                  <House size={20} />
                   {transaction.category}
                 </Category>
               )}
-              <DateT>{transaction.date.split('-').reverse().join('/')}</DateT>
+
+              {transaction.category === 'Outros' && (
+                <Category>
+                  <Cardholder size={20} />
+                  {transaction.category}
+                </Category>
+              )}
+              <DateT>{format(transaction.date, 'dd/MM/yyyy')}</DateT>
             </tr>
           ))}
         </tbody>
