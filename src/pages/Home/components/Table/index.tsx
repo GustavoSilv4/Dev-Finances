@@ -1,6 +1,12 @@
-import { Container } from './styles'
+import { Coffee, CurrencyDollar, House } from 'phosphor-react'
+import { TransactionListData } from '../..'
+import { Category, Container, DateT, Title, Value } from './styles'
 
-export function Table() {
+interface TableProps {
+  transactionList: TransactionListData[]
+}
+
+export function Table({ transactionList }: TableProps) {
   return (
     <Container>
       <table>
@@ -13,30 +19,40 @@ export function Table() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Desenvolvimento de site</td>
-            <td>R$ 12.000,00</td>
-            <td>Venda</td>
-            <td>13/04/2020</td>
-          </tr>
-          <tr>
-            <td>Hamburguer</td>
-            <td>R$ 5.400,00</td>
-            <td>Alimentação</td>
-            <td>10/04/2020</td>
-          </tr>
-          <tr>
-            <td>Aluguel do apartamento</td>
-            <td>- R$ 59,00</td>
-            <td>Casa</td>
-            <td>27/03/2020</td>
-          </tr>
-          <tr>
-            <td>Computador</td>
-            <td>- R$ 1.200,00</td>
-            <td>Venda</td>
-            <td>15/03/2020</td>
-          </tr>
+          {transactionList.map((transaction) => (
+            <tr key={transaction.id}>
+              <Title>{transaction.title}</Title>
+              {transaction.type === 'Saque' ? (
+                <Value type={transaction.type}>- R$ {transaction.value.replace('.', ',')}</Value>
+              ) : (
+                <Value type={transaction.type}>R$ {transaction.value.replace('.', ',')}</Value>
+              )}
+
+              {transaction.category === 'Venda' && (
+                <Category>
+                  <CurrencyDollar size={20} />
+                  {transaction.category}
+                </Category>
+              )}
+
+              {transaction.category === 'Alimentação' && (
+                <Category>
+                  <Coffee size={20} />
+                  {transaction.category}
+                </Category>
+              )}
+
+              {transaction.category === 'Casa' && (
+                <Category>
+                  <span>
+                    <House size={20} />
+                  </span>
+                  {transaction.category}
+                </Category>
+              )}
+              <DateT>{transaction.date.split('-').reverse().join('/')}</DateT>
+            </tr>
+          ))}
         </tbody>
       </table>
     </Container>
