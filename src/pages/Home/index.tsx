@@ -82,7 +82,7 @@ export function Home() {
           <Card type="total" />
         </CardSection>
 
-        <Table />
+        <Table transactionList={transactionList} />
         <ModalCategory
           show={showModalCategory}
           closeModal={handleShowModalCategory}
