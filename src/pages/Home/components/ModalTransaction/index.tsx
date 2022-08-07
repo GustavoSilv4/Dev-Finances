@@ -49,7 +49,13 @@ export function ModalTransaction({ show, closeModal, categories, createTransacti
         <div>
           <ModalForm onSubmit={handleSubmit(handleCreateNewTransaction)}>
             <input type="text" placeholder="Digite o titulo" {...register('title')} />
-            <input type="number" step="0.01" placeholder="Digite o valor (Ex: 250,00)" {...register('value')} />
+            <input
+              type="number"
+              min="0.00"
+              step="0.01"
+              placeholder="Digite o valor (Ex: 250,00)"
+              {...register('value')}
+            />
             <label>Tipo da Transação</label>
             <div>
               <div>
