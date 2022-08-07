@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 import { Card } from '../../components/Card'
 import { Table } from './components/Table'
-import { ModalCategory } from './components/ModalCategory'
 import { ModalTransaction } from './components/ModalTransaction'
 
 import logo from '../../assets/finance-image.png'
@@ -12,9 +11,9 @@ export interface TransactionListData {
   id: number
   title: string
   value: string
-  type: string
+  type: 'income' | 'outcome'
   category: string
-  date: string
+  date: Date
 }
 
 export interface CategoriesData {
@@ -23,32 +22,19 @@ export interface CategoriesData {
 }
 
 export function Home() {
-  const [showModalCategory, setShowModalCategory] = useState(false)
   const [showModalTransaction, setShowModalTransaction] = useState(false)
 
   const [transactionList, setTransactionList] = useState<TransactionListData[]>([])
 
-  const [category, setCategory] = useState<CategoriesData[]>([
+  const [category] = useState<CategoriesData[]>([
     { id: 1, name: 'Venda' },
     { id: 2, name: 'Alimentação' },
     { id: 3, name: 'Casa' },
+    { id: 4, name: 'Outros' },
   ])
-
-  function handleShowModalCategory() {
-    setShowModalCategory(!showModalCategory)
-  }
 
   function handleShowModalTransaction() {
     setShowModalTransaction(!showModalTransaction)
-  }
-
-  function createNewCategory(category: string) {
-    const newCategory = {
-      id: new Date().getTime(),
-      name: category,
-    }
-
-    setCategory((state) => [...state, newCategory])
   }
 
   function createNewTransaction(data: TransactionListData) {
@@ -64,30 +50,22 @@ export function Home() {
     setTransactionList((state) => [...state, newTransaction])
   }
 
-  console.log(transactionList)
-
   return (
     <Container>
       <Header>
         <img src={logo} alt="" />
         <nav>
-          <button onClick={handleShowModalCategory}>Criar categoria</button>
           <button onClick={handleShowModalTransaction}>Transação</button>
         </nav>
       </Header>
       <main>
         <CardSection>
-          <Card type="entrada" />
-          <Card type="saida" />
-          <Card type="total" />
+          <Card type="entrada" transactionList={transactionList} />
+          <Card type="saida" transactionList={transactionList} />
+          <Card type="total" transactionList={transactionList} />
         </CardSection>
 
         <Table transactionList={transactionList} />
-        <ModalCategory
-          show={showModalCategory}
-          closeModal={handleShowModalCategory}
-          createCategory={createNewCategory}
-        />
         <ModalTransaction
           show={showModalTransaction}
           closeModal={handleShowModalTransaction}
