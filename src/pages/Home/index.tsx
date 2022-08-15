@@ -56,7 +56,7 @@ export function Home() {
         <HeaderContent>
           <img src={logo} alt="" />
           <nav>
-            <button onClick={handleShowModalTransaction}>New Transação</button>
+            <button onClick={handleShowModalTransaction}>Nova Transação</button>
           </nav>
         </HeaderContent>
       </HeaderBackground>

@@ -60,11 +60,11 @@ export function ModalTransaction({ show, closeModal, categories, createTransacti
             <div>
               <ButtonIncome type="button" onClick={(e) => setButtonType('income')} typeButtonProps={buttonType}>
                 <ArrowCircleUp size={24} />
-                Income
+                Entrada
               </ButtonIncome>
               <ButtonOutcome type="button" onClick={(e) => setButtonType('outcome')} typeButtonProps={buttonType}>
                 <ArrowCircleDown size={24} />
-                Outcome
+                Saída
               </ButtonOutcome>
             </div>
             <select id="categorias" {...register('category')}>
