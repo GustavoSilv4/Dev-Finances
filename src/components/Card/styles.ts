@@ -5,7 +5,8 @@ interface TypeProps {
 }
 
 export const Container = styled.a<TypeProps>`
-  width: 22rem;
+  width: 20rem;
+  max-width: 22rem;
   max-height: 8.5rem;
   padding: 1.5rem 2rem 1.125rem;
 
@@ -13,10 +14,12 @@ export const Container = styled.a<TypeProps>`
   border-radius: 5px;
   box-shadow: 5px 5px 15px -1px rgba(0, 0, 0, 0.55);
 
-  background-color: ${(props) => (props.typeCard === 'total' ? props.theme.green : '#FFFFFF')};
+  background-color: ${(props) =>
+    props.typeCard === 'total' ? props.theme.green : '#FFFFFF'};
 
   span {
-    color: ${(props) => (props.typeCard === 'total' ? '#FFFFFF' : props.theme.title)};
+    color: ${(props) =>
+      props.typeCard === 'total' ? '#FFFFFF' : props.theme.title};
     font-size: 2.25rem;
     font-weight: 600;
   }
@@ -34,7 +37,8 @@ export const Container = styled.a<TypeProps>`
     > svg {
       ${(props) => props.typeCard === 'total' && 'color: #FFFFFF'}
       ${(props) => props.typeCard === 'saida' && `color: ${props.theme.red}`}
-      ${(props) => props.typeCard === 'entrada' && `color: ${props.theme.green}`}
+      ${(props) =>
+        props.typeCard === 'entrada' && `color: ${props.theme.green}`}
     }
   }
 `

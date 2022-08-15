@@ -2,15 +2,21 @@ import styled from 'styled-components'
 
 export const Container = styled.div``
 
-export const Header = styled.header`
-  width: 100%;
-  height: 14.8rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 2rem 10rem 0;
+export const HeaderBackground = styled.div`
+  width: 100vw;
+  height: 238px;
 
   background-color: ${(props) => props.theme['green-light']};
+`
+
+export const HeaderContent = styled.header`
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+
+  display: flex;
+  justify-content: space-between;
 
   img {
     width: auto;
@@ -53,9 +59,27 @@ export const Header = styled.header`
 `
 
 export const CardSection = styled.section`
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 
-  margin: -6.25rem 10rem 4rem;
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+
+  margin-top: -6.25rem;
+  margin-bottom: 4rem;
+
+  @media (max-width: 1280px) {
+    width: 100vw;
+    align-items: center;
+    margin: -6.25rem 0rem 4rem;
+  }
+
+  @media (max-width: 1028px) {
+    width: 100vw;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 `

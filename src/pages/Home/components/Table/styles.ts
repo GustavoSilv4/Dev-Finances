@@ -9,6 +9,14 @@ export const Container = styled.section`
   max-height: 30rem;
   overflow: auto;
 
+  @media (max-width: 864px) {
+    margin: 0 5rem 10rem;
+  }
+
+  @media (max-width: 500px) {
+    margin: 0 2rem 10rem;
+  }
+
   table {
     width: 100%;
     min-width: 600px;

@@ -5,7 +5,7 @@ import { Table } from './components/Table'
 import { ModalTransaction } from './components/ModalTransaction'
 
 import logo from '../../assets/finance-image.png'
-import { CardSection, Container, Header } from './styles'
+import { CardSection, Container, HeaderBackground, HeaderContent } from './styles'
 
 export interface TransactionListData {
   id: number
@@ -52,12 +52,14 @@ export function Home() {
 
   return (
     <Container>
-      <Header>
-        <img src={logo} alt="" />
-        <nav>
-          <button onClick={handleShowModalTransaction}>Transação</button>
-        </nav>
-      </Header>
+      <HeaderBackground>
+        <HeaderContent>
+          <img src={logo} alt="" />
+          <nav>
+            <button onClick={handleShowModalTransaction}>New Transação</button>
+          </nav>
+        </HeaderContent>
+      </HeaderBackground>
       <main>
         <CardSection>
           <Card type="entrada" transactionList={transactionList} />

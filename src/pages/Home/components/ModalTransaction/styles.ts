@@ -134,8 +134,12 @@ export const ButtonIncome = styled(ButtonTypeBase)<ButtonProps>`
     color: ${(props) => props.theme.green};
   }
 
-  ${(props) => props.typeButtonProps === 'income' && `background-color: rgba(73, 170, 38, 20%);`}
-  ${(props) => props.typeButtonProps === 'income' && `border: 1px solid rgba(73, 170, 38, 20%);`}
+  ${(props) =>
+    props.typeButtonProps === 'income' &&
+    `background-color: rgba(73, 170, 38, 20%);`}
+  ${(props) =>
+    props.typeButtonProps === 'income' &&
+    `border: 1px solid rgba(73, 170, 38, 20%);`}
 `
 
 export const ButtonOutcome = styled(ButtonTypeBase)<ButtonProps>`
@@ -143,8 +147,12 @@ export const ButtonOutcome = styled(ButtonTypeBase)<ButtonProps>`
     color: ${(props) => props.theme.red};
   }
 
-  ${(props) => props.typeButtonProps === 'outcome' && `background-color: rgba(233, 41, 41, 20%);`}
-  ${(props) => props.typeButtonProps === 'outcome' && `border: 1px solid rgba(233, 41, 41, 20%);`}
+  ${(props) =>
+    props.typeButtonProps === 'outcome' &&
+    `background-color: rgba(233, 41, 41, 20%);`}
+  ${(props) =>
+    props.typeButtonProps === 'outcome' &&
+    `border: 1px solid rgba(233, 41, 41, 20%);`}
 `
 
 export const ButtonClose = styled.button`
