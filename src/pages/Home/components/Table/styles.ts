@@ -48,6 +48,10 @@ export const Container = styled.section`
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
     }
+
+    @media (max-width: 1085px) {
+      width: 100%;
+    }
   }
 `
 

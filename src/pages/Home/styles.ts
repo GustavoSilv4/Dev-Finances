@@ -17,6 +17,7 @@ export const HeaderContent = styled.header`
 
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
 
   img {
     width: auto;
